@@ -1,9 +1,10 @@
 # QAL Lite
-**QAL Lite** is the free public cut down version of QAL.
+
+**QAL Lite 0.8** is the free public cut down version of QAL 0.8.
 
 **QAL** (Quantum Algorithms Lab) is an innovative visual interactive web app for *teaching* and *researching* quantum algorithms and quantum informatics, as well as related mathematical fields such as linear algebra and group theory.
 
-As to teaching math in particular, QAL aims to teach the concepts of linear algebra (and group theory) visually and interactively as an intuitive *game*.
+As to teaching math in particular, QAL aims to teach the concepts of linear algebra and group theory visually and interactively as an intuitive *game*.
 
 Besides quantum computing, the math nicely presented in QAL has applications in machine learning, computer graphics, and cybersecurity, among many other mathematical sciences.
 
