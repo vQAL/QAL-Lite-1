@@ -5,4 +5,4 @@ QAL (Quantum Algorithms Lab) is an innovative visual interactive web app for *te
 
 As to teaching math in particular, QAL aims to teach the concepts of linear algebra (and group theory) visually and interactively as an intuitive *game*.
 
-QAL Lite presents a glimpse of the main features of QAL.  Check the **QAL Abstract** and **QAL Lite Screenshots** files for more details.
+QAL Lite presents a glimpse of the main features of QAL. Check the **QAL Abstract** and **QAL Lite Screenshots** files for more details.
