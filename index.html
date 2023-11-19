@@ -1,2 +1,501 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml" /><Default Extension="xml" ContentType="application/xml" /><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml" /><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml" /><Override PartName="/word/settings.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.settings+xml" /><Override PartName="/word/webSettings.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.webSettings+xml" /><Override PartName="/word/fontTable.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.fontTable+xml" /><Override PartName="/word/theme/theme1.xml" ContentType="application/vnd.openxmlformats-officedocument.theme+xml" /><Override PartName="/docProps/core.xml" ContentType="application/vnd.openxmlformats-package.core-properties+xml" /><Override PartName="/docProps/app.xml" ContentType="application/vnd.openxmlformats-officedocument.extended-properties+xml" /></Types>
+<!-- Bism Ellah ElRahman ElRaheem (In the name of God, the Most Gracious, the Most Merciful) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma"  content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+
+    <meta name="color-scheme" content="light dark">
+
+    <title>Quantum Algorithms Lab (QAL) Lite 0.8</title>
+
+	<link href="jqueryui/jquery-ui.css" rel="stylesheet"/>
+	<style>
+		.ui-button {
+			padding: .2em 1em;
+		}
+
+		.ui-slider .ui-slider-handle {
+			height: 1em;
+		}
+
+		.ui-slider-horizontal .ui-slider-handle {
+			top: -.17em;
+		}
+
+		.ui-spinner-input {
+			height: .5em;
+		}
+	</style>
+
+
+	<script src="QAL-math.js"></script>
+
+	<script src="jqueryui/jquery.js"></script>
+
+	<script src="QAL-algorithm.js"></script>
+
+	<script src="D3/D3.min.js"></script>
+
+	<script src="QAL-graphics.js"></script>
+	<script src="QAL-graphics-defaultd.js"></script>
+
+	<script src="jqueryui/jquery-ui.min.js"></script>
+
+	<script src="QAL-control.js"></script>
+
+	<script type="text/javascript"
+			src="https://www.statcounter.com/counter/counter.js"
+			async></script>
+
+	<script src="QAL-aboutHTML.js"></script>
+	<script src="doc/QAL-helpHTML.js"></script>
+</head>
+
+<body>
+<center>
+<font color="darkblue">
+
+<h1><font family="Verdana">Welcome to QAL<sup><font size="-1">&reg;</font></sup> Lite: the <span  title="QAL is a visual interactive web app for manipulating, analyzing, and playing with quantum algorithms. Visualization in QAL includes heavy use of colors, 2-D shapes and diagrams, and 3-D graphics. Interactivity includes seeing real-time effects of changes in the steps of a quantum algorithm on input quantum states and on the overall operation of the algorithm."><i><font color="red">vi</font><font color="green">su</font><font color="blue">al</font></i></span> Quantum Algorithms Lab<sup><font size="-1">&reg;</font></sup></font></h1>
+
+<div id="aboutDlg" title="About QAL">
+</div>
+<script>
+includeAboutHTML()
+</script>
+
+
+<div id="addCustomGateDlg" title="Add Custom Gate...">
+	<label for="custom-gate-def-entries">Gate (matrix entries) </label>
+	<br>
+	<input type="text" id="custom-gate-def-entries" size="100" title="Entries of custom gate, initialized with result matrix (i.e., overall subalgorithm operation)."/>
+	<br><br>
+	<label for="custom-gate-title">Gate Name </label>
+	<input type="text" id="custom-gate-title" size="50" title="Enter name by which gate will be added to custom gates list."/>
+	&nbsp;&nbsp;
+	<label for="custom-gate-acr">Short Name </label>
+	<input type="text" id="custom-gate-acr" size="5" title="Enter gate shortname if you want a gate button added. (If provided, will also be used in circuit diagrams.)"/>
+	<br><br>
+</div>
+
+<div id="addCustomPermDlg" title="Add Custom Permutation...">
+	<label for="custom-perm-def-list-str">Permutation (outputs list) </label>
+	<br>
+	<input type="text" id="custom-perm-def-list-str" size="100" title="List of custom permutation outputs, initialized with result permutation (i.e., overall subalgorithm operation)."/>
+	<br><br>
+	<label for="custom-perm-title">Permutation Name </label>
+	<input type="text" id="custom-perm-title" size="50" title="Enter name by which permutation will be added to custom gates list."/>
+	&nbsp;&nbsp;
+	<label for="custom-perm-acr">Short Name </label>
+	<input type="text" id="custom-perm-acr" size="5" title="Enter move/permutation shortname if you want a button added. (If provided, will also be used in circuit/algorithm diagrams.)"/>
+	<br><br>
+</div>
+
+
+<div id="helpDlg" title="QAL Help">
+</div>
+<script>
+includeHelpHTML()
+</script>
+
+<div id="algTxtDlg" title="Algorithm Steps Text">
+	<br>
+	<label for="alg-string">Recipe</label>
+	<br><br>
+	<textarea id="alg-string" readonly cols="120" rows="30" title="Steps of algorithm."></textarea>
+	<br><br>
+</div>
+
+
+<form style="width:90%;">
+
+<button id="about-btn" style="font-size: 0.8em; height: 1.8em" title="About QAL 0.8"><font color="darkblue">About...</font></button>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;
+<label for="adv-controls"> Advanced Dashboard</label>
+<input id="adv-controls" type="checkbox" title="Use an advanced or a simplified QAL control panel."/>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;
+<button id="help-btn" style="font-size: 0.8em; height: 1.8em" title="QAL 0.8 Help"><font color="darkblue">Help...</font></button>
+
+<div id="settings-header">
+	<div align="left"><b>QAL Settings</b></div>
+
+<div id="settings">
+
+<div align="left"><B>Algorithm Settings</B></div><div>
+<fieldset>
+<font color="darkblue">
+	<label for="ndigits-spinner" title="Number of digits (&lsquo;qubits&rsquo;). Can&rsquo;t be changed directly (Use &lsquo;number of parts&rsquo; instead). If digits are qubits, the number of parts is 2^(#qubits). Maximum number of digits/qubits supported in this free version of QAL is 3. (Full version: 0-10)">#Digits/Qbits </label>
+	<input type="text" id="ndigits-spinner" size="2" readonly/>
+	&nbsp;
+	<label for="nparts-spinner">#Parts/E.States </label>
+	<input type="text" id="nparts-spinner" size="2" title="Number of moving parts (&lsquo;basis/eigen states&rsquo;) that the algorithm operates on (presented vertically in QAL). Maximum number of parts supported in this free version of QAL is 8. Minimum is 3. (Full version: 0-1024)"/>
+	&nbsp;
+	<label for="nsteps-spinner">#Steps </label>
+	<input type="text" id="nsteps-spinner" size="2" title="Number of algorithm steps (presented horizontally in QAL). Maximum number of steps supported in this free version of QAL is 10. Minimum is 3. (Full version: 0-999)"/>
+	&nbsp;
+	&nbsp;
+	&nbsp;
+
+	<label class="adv" for="compose-add" title="Composition of alg. steps adds the steps (rather than matrix multiply them, i.e., compute correlation strength). Useful in treating steps as states/configurations/game positions.">Compose Adds </label>
+	<input class="adv" type="checkbox" id="compose-add" title="Composition of alg. steps adds the steps (rather than matrix multiply them, i.e., compute correlation strength). Useful in treating steps as state/configurations."/>
+	&nbsp;
+
+	<label class="adv" for="max-mag-spinner">Max. Mag. </label>
+	<input class="adv" type="text" id="max-mag-spinner" size="2" title="Maximum expected magnitude in algorithm steps."/>
+	&nbsp;
+
+	<label class="adv" for="modular-arith" title="Modular/wall clock arithmetic.">Mod. Mag. </label>
+	<input class="adv" type="checkbox" id="modular-arith" disabled title="Addition and multiplication of magnitudes (for states and overall result) are done modulo max. input magnitude (wrap around)."/>
+	&nbsp;
+	&nbsp;
+	&nbsp;
+	&nbsp;
+
+	<label title="Settings for generating new algorithm.">New Alg.: </label>
+	&nbsp;
+	<label class="adv" for="init-integer" title="Integer/Discrete algorithm">Integer </label>
+	<input class="adv" type="checkbox" id="init-integer" disabled title="Algorithm steps are initialized to integer-only matrices (for exploring linear [Diophantine] equations)."/>
+	&nbsp;
+	<label for="init-unitary">Unitary</label>
+	<input type="checkbox" id="init-unitary" title="Algorithm steps are initialized to unitary gates (Binary &rarr; Permutations). (TODO: For now, &lsquo;roots of doubly-stochastic&rsquo;. &lsquo;Isometry&rsquo; is a planned addition also, to model and explore the possible unification of quantum theory and general relativity theory and space (the Universe&rsquo;s) expansion [disallowed by the unitarity of quantum theory].)"/>
+	&nbsp;
+	<label for="init-binary">Binary</label>
+	<input type="checkbox" id="init-binary" title="Algorithm steps are initialized to binary gates (Unitary &rarr; Permutations)"/>
+	&nbsp;
+
+	&nbsp;
+	<label for="random-init">Random</label>
+	<input type="checkbox" id="random-init" title="Initialize algorithm with random gates/perms or with identities (nops)?"/>
+</font>
+</fieldset>
+
+<fieldset>
+
+	<button class="adv" id="merge-subalg-btn" style="font-size: 0.8em; height: 1.8em" title="Merge subalgorithm steps into one step"><font color="darkblue">Merge Subalgorithm Steps</font></button>
+
+	&nbsp;&nbsp;&nbsp;
+
+	<button class="adv" id="add-custom-gate-btn" style="font-size: 0.8em; height: 1.8em" title="Add (sub)algorithm result to custom gates"><font color="darkblue">Add to Custom Gates</font></button>
+
+	&nbsp;&nbsp;&nbsp;
+
+	<button id="save-qalg-btn" style="font-size: 0.8em; height: 1.8em"
+		title="Save current algorithm">Save Algorithm</button>
+	<button id="load-gates-btn" style="font-size: 0.8em; height: 1.8em"
+		title="Load gates/permutations or full quantum algorithms">Load Gates or Algs.</button>
+
+	&nbsp;
+	<button id="alg-txt-btn" style="font-size: 0.8em; height: 1.8em"
+		title="Algorithm Steps Text (&ldquo;pseudo-program&rdquo;)">Show Recipe</button>
+</fieldset>
+
+</div><div align="left"><B>Presentation Settings</B></div><div>
+
+<fieldset>
+
+<font color="darkblue">
+
+	<label for="show-heatmaps">Heatmaps</label>
+	<input type="checkbox" id="show-heatmaps"/>
+	&nbsp; &nbsp;
+	&nbsp; &nbsp;
+	<label for="show-cn-heatmaps">NQV-1</label>
+	<label class="nov" for="arrow-cn-heatmaps">NQV-2</label>
+	&nbsp; &nbsp;
+	&nbsp; &nbsp;
+	<label for="show-ccds" title='&ldquo;Phil Mazes&rdquo; [IQALA] (Check QAL references.)'>NQV-3</label>
+	<label class="nov" for="show-hdccds">NQV-4</label>
+
+	&nbsp; &nbsp;
+	&nbsp; &nbsp;
+	<label class="nov" for="show-ccsds">NQV-5</label>
+	&nbsp;
+	<label class="nov" for="show-sccsds">NQV-6</label>
+	&nbsp; &nbsp;
+	&nbsp; &nbsp;
+	<label class="adv" for="show-matrices">Matrices</label>
+	<input class="adv" type="checkbox" id="show-matrices" title="Show textual matrices (and vectors; for debugging).  Enable using $(&ldquo;#show-matrices&rdquo;)[0].disabled = false"/>
+
+	&nbsp; &nbsp;
+	&nbsp; &nbsp;
+	<label for="show-circdiag">Circuit Diagram</label>
+	<input type="checkbox" id="show-circdiag" title="Algorithm Circuit Diagram (Disabled in earlier QAL versions. Not strongly supported in this version, in agreement with [IQALA] philosophy)"/>
+	&nbsp; &nbsp;
+	&nbsp; &nbsp;
+	<label class="adv" for="show-zxdiag">ZX Diagram</label>
+	<input class="adv" type="checkbox" id="show-zxdiag" disabled title="Algorithm ZX Diagram (Disabled. Experimental)"/>
+	&nbsp; &nbsp;
+	&nbsp; &nbsp;
+	<br class="adv nov"><br class="adv nov">
+	<label class="adv" for="show-novel">Novel Diagrams</label>
+	<input class="adv" type="checkbox" id="show-novel" title="Enable new visuals (Experimental)"/>
+
+	<br><br>
+	<label>Show: &nbsp;</label>
+	<label for="show-marks"> Selection Marks</label>
+	<input type="checkbox" id="show-marks" title="Show selection and subalgorithm marks (allow changing subalgorithm boundaries)"/>
+	&nbsp;&nbsp;
+	&nbsp;&nbsp;
+	<label for="show-symbols">Parts&rsquo; Symbols</label>
+	<input type="checkbox" id="show-symbols" title="Show symbols (&ldquo;names&rdquo;) for basis states/parts"/>
+	&nbsp;&nbsp;
+	&nbsp;&nbsp;
+	&nbsp;&nbsp;
+	<label for="show-states">States/Part Configurations</label>
+	<input type="checkbox" id="show-states" title="Show states/configurations of moving parts. Enable using $(&ldquo;#show-states&rdquo;)[0].disabled = false"/>
+
+
+	&nbsp;&nbsp;
+	<label class="adv" for="show-final-state-histogram">Final State Histogram</label>
+	<input class="adv" type="checkbox" id="show-final-state-histogram" title="Show final state histogram. (Nearly useless if all steps are permutations.)"/>
+	&nbsp; &nbsp; &nbsp; &nbsp;
+	<label for="detailed-info">Detailed Tooltips</label>
+	<input type="checkbox" id="detailed-info" title="Provide detailed info, e.g., in tooltips."/>
+
+	<br class="adv"><br class="adv">
+
+	<label class="adv" for="ccd-hfactor-slider">NQV-3 Height &nbsp;</label>
+	<div class="adv" id="ccd-hfactor-slider" style="width: 70px; display: inline-block" title="Change height of NQV-3s."></div>
+	&nbsp;&nbsp;
+	<label class="adv" for="cell-size-slider">Cell Size &nbsp;</label>
+	<div class="adv" id="cell-size-slider" style="width: 70px; display: inline-block" title="Change size of step cells"></div>
+	&nbsp;&nbsp;
+	<label class="adv" for="cells-hgap">Horiz.</label>
+	<input class="adv" type="checkbox" id="cells-hgap" title="Change cell or gap sizes in both directions (horizontally &amp; vertically)"/>
+	&nbsp;&nbsp;
+	<label class="adv" for="cells-vgap-slider">Cell Gap &nbsp;</label>
+	<div class="adv" id="cells-vgap-slider" style="width: 70px; display: inline-block" title="Change size of vertical gaps between step cells (setting this to somewhat large values is particularly useful for NQV-3s)"></div>
+	&nbsp;&nbsp;
+
+	<label class="adv" for="steps-gap-slider">Steps Gap &nbsp;</label>
+	<div class="adv" id="steps-gap-slider" style="width: 70px; display: inline-block" title="Change size of gap between algorithm steps (setting this to &#x2264; 0 is particularly useful for NQV-3s)"></div>
+	<label class="adv">&nbsp;&nbsp;&nbsp;&nbsp;</label>
+	<label for="horiz-scroll">Horiz. Scroll </label>
+	<input type="text" id="horiz-scroll" size="3" readonly title="Horizontal scroll (right/left)"/>
+	&nbsp;&nbsp;
+	<label for="zoom-in-btn">Zoom </label>
+	<button id="zoom-in-btn" onclick='QALZoomIn()'>+</button>
+	<button id="zoom-out-btn" onclick='QALZoomOut()'>-</button>
+	&nbsp;&nbsp;
+	<label for="backgnd-degree">Background </label>
+	<input type="text" id="backgnd-degree" size="3" readonly title="Background lightness (degrees of grey)"/>
+
+	<br class="adv"><br class="adv">
+
+	<label class="adv" for="monochromatic-presentations">Monochromatic <!--Presentations--></label>
+	<input class="adv" type="checkbox" id="monochromatic-presentations" title='Present algorithm in monochromatic colors (&ldquo;cancel hue/phase&rdquo;).'/>
+
+	&nbsp;
+	<label class="adv" for="mono-hue">Mono. Hue </label>
+	<input class="adv" type="text" id="mono-hue" size="3" readonly title="Hue of color for monochromatic presentations."/>
+	&nbsp;
+	<label class="adv" for="color-degrees">Color Degrees</label>
+	<input class="adv" type="checkbox" id="color-degrees" title='Use one color degree/lightness (&ldquo;cancel magnitude&rdquo;), or allow magnitudes to decide lightness.'/>
+
+	&nbsp; &nbsp;
+
+	<label class="adv" for="colormap">Colormap&nbsp;</label>
+	<IMG class="adv" id="colormap-img" src="doc/images/HSLInverted.png" ALT="Standard Colormap (with hole)" BORDER=0 width="30" height="30" style="vertical-align:middle">&nbsp;
+	<select class="adv" id="colormap">
+	  	<option value="invhsl">Inverted HSL &lt;Default&gt;</option>
+	  	<option value="hsl">HSL (0=Black, 1=White) (disabled)</option>
+	  	<option value="rainbow">(Backward) Sinebow HSL (disabled)</option>
+	  	<option value="more">Custom... (Design Colormap) (disabled)</option>
+	</select>
+
+	&nbsp; &nbsp; &nbsp; &nbsp;
+
+	<label class="adv" for="qal-mode">QAL Mode&nbsp;</label>
+	<select class="adv" id="qal-mode">
+	  	<option value="lab">Lab (&ldquo;Goal-less&rdquo;) &lt;Default&gt;</option>
+	  	<option value="quantor">Game: Quantor (disabled)</option>
+	  	<option value="lightsout">Game: Lights Out (disabled)</option>
+	  	<option value="qlogic">Game: Quantum Logic (disabled)</option>
+	  	<option value="rubikscube">Game: Rubik&rsquo;s Cube (disabled)</option>
+	  	<option value="dualcycles">Game: Dual Cycles (disabled)</option>
+	  	<option value="minesweeper">Game: Minesweeper (disabled)</option>
+	  	<option value="redall">Game: RedAll (disabled)</option>
+	  	<option value="PPMP">Game: [PPMP] Perm Puzzles (disabled)</option>
+	  	<option value="SET">Game: SET! (disabled)</option>
+	  	<option value="pocketcube">Game: Pocket Cube (2x2x2 Rubik&rsquo;s Cube) (disabled)</option>
+	</select>
+
+	<br class="adv"><br class="adv">
+
+	<label class="adv" for="color-range-slider">Include/Exclude Color Range &nbsp;</label>
+	<div class="adv" id="color-range-slider" style="width: 700px; display: inline-block" title="Range of color hue or lightness to display or exclude."></div>
+	&nbsp;
+	<input class="adv" type="checkbox" id="hue-lig" title="Range for hue or lightness?"/>
+	<label class="adv" for="hue-lig">Hue? &nbsp;</label>
+	<input class="adv" type="checkbox" id="incl-color-range" title="Include/exclude in range."/>
+	<label class="adv" for="incl-color-range">Include? &nbsp;</label>
+
+
+
+</font>
+</fieldset>
+
+</div>
+
+
+<div align="left"><B>Current Selection Settings</B></div><div>
+
+<fieldset>
+	<label for="selstep-slider">Step &nbsp;</label>
+	<div id="selstep-slider" style="width: 150px; display: inline-block" title="Change step (of selected cell)"></div>
+	&nbsp;
+	<input type="text" id="selstep-val" size="7" readonly/>
+	&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;
+
+	<button id="gate-info-btn" style="font-size: 0.8em; height: 1.8em"
+		title="Get information (such as type [general, unitary, binary, permutation, bounded, isometry, monomial, doubly-stochastic, roots of d-stoch., hermitian, symmetric, ... etc.], order, sign(ature), cycle structure, eigenvectors and eigenvalues, rank, nullity (dim. of kernel/solutions space), (dim. of cokernel/constraints space), index (deg. of freedom - #constraints), ... etc.) on current step's gate/permutation (order max.=1000) TODO"><font color="darkblue">Step Info</font></button>
+	<button id="save-gate-btn" style="font-size: 0.8em; height: 1.8em"
+		title="Save current custom gate/permutation TODO"><font color="darkblue">Save Step Gate/Perm.</font></button>
+
+<br class="adv"><br class="adv">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+	<label class="adv" for="all-col">From All</label>
+    <input class="adv" type="checkbox" id="all-col" title="Ignore row (from part). Change all column entries (i.e., from all parts)."/>
+	<label for="part-from-slider">From Part &nbsp; </label>
+	<div id="part-from-slider" style="width: 100px; display: inline-block" title="Change row (of selected cell)"></div>
+	&nbsp;&nbsp;
+	<input type="text" id="part-from-val" size="1" readonly/>
+	<label class="adv" for="emph-from-bra"></label>
+    <input class="adv" type="checkbox" id="emph-from-bra" title="Emphasize &#x3008; &#x22C5; | (Bra/Row)"/>
+
+
+	&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;
+	&nbsp;&nbsp;&nbsp;
+
+	<label class="adv" for="all-row">To All</label>
+    <input class="adv" type="checkbox" id="all-row" title="Ignore column (to part). Change all row entries (i.e., to all parts)."/>
+	<label for="part-to-slider">To Part &nbsp;</label>
+	<div id="part-to-slider" style="width: 100px; display: inline-block" title="Change column (of selected cell)"></div>
+	&nbsp;&nbsp;
+	<input type="text" id="part-to-val" size="1" readonly>
+	<label class="adv" for="emph-to-ket"></label>
+    <input class="adv" type="checkbox" id="emph-to-ket" title="Emphasize |&#x22C5; &#x3009; (Ket/Col.)"/>
+
+
+	<br><br>
+
+	<label for="magnitude-slider">Magnitude &nbsp;</label>
+	<div id="magnitude-slider" style="width: 200px; display: inline-block" title="Change magnitude of selected cell"></div>
+	<label for="magnitude-val"> = </label>
+	<input type="text" id="magnitude-val" size="2" readonly style="border:0;"/>
+
+	&nbsp; &nbsp;
+	&nbsp; &nbsp;
+
+	<label for="phase-slider">Phase &nbsp;</label>
+	<div id="phase-slider" style="width: 200px; display: inline-block" title="Change phase of selected cell"></div>
+	<label for="phase-val"> = </label>
+	<input type="text" id="phase-val" size="25" readonly style="border:0;" title="Phase in degrees, and its nearest 24th and 30th of &#x03C0;"/>
+	&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+</fieldset>
+
+<fieldset id="gate-panel">
+
+	<label class="adv" for="gate">Gate/Perm.</label>
+	<select class="adv" id="gate">
+	  	<option value="id">ID (Nop)</option>
+	  	<option value="not">NOT (Rotate X 180&#x000B0;)</option>
+	  	<option value="swap">SWAP (with next qubit/digit) (disabled)</option>
+	  	<option value="cnot">CNOT (with next qubit/digit) (disabled)</option>
+
+	  	<option disabled value="">-----</option>
+
+	  	<option value="cyc-cw">Cycle Clockwise (1&rarr;2)</option>
+	  	<option value="cyc-acw">Cycle Anti-Clockwise (2&rarr;1)</option>
+
+	  	<option disabled value="">-----</option>
+	  	<option value="H">H(adamard)</option>
+	  	<option value="Z">Z  (Rotate Z 180&#x000B0;)</option>
+	  	<option value="S">S  (Rotate Z 90&#x000B0;)</option>
+	  	<option value="T">T  (Rotate Z 45&#x000B0;)</option>
+	  	<option value="RZ">Rotate Z (disabled)</option>
+	  	<option value="QFT">QFT</option>
+
+	  	<option disabled value="">-----</option>
+	  	<option value="random">Random</option>
+	  	<option value="custom" selected="selected">Custom</option>
+
+
+	  	<option disabled value="">--Rubik&lsquo;s Cube (disabled)--</option>
+	  	<option value="RC-F">F(ront)</option>
+	  	<option value="RC-B">B(ack)</option>
+	  	<option value="RC-R">R(ight)</option>
+	  	<option value="RC-L">L(eft)</option>
+	  	<option value="RC-U">U(p)</option>
+	  	<option value="RC-D">D(own)</option>
+
+	  	<option disabled value="">--Dual Circles (disabled)--</option>
+	  	<option value="DC-R">R(ed)</option>
+	  	<option value="DC-B">B(lue)</option>
+
+	  	<option disabled value="">--Quantor (disabled)--</option>
+	  	<option value="QR-C">Cell(...)</option>
+
+	  	<option disabled value="">--Lightsout (disabled)--</option>
+	  	<option value="LO-C">Cell(...)</option>
+	  	<option disabled value="">--Matrix Operation--</option>
+	  	<option value="adjoint">Adjoint</option>
+	  	<option value="transpose">Transpose</option>
+	  	<option value="conjugate">Conjugate</option>
+	  	<option value="inverse">Inverse</option>
+	  	<option value="scale">Scale</option>
+	  	<option value="add-to-last">Add (into last) TODO</option>
+	  	<option disabled value="">--Custom Gates--</option>
+
+	</select>
+	&nbsp; &nbsp;
+	<label for="gate-reps-spinner">Repeat</label>
+	<input type="text" id="gate-reps-spinner" size="1"/>
+	<label for="gate-reps-spinner">time(s)</label>
+	&nbsp; &nbsp;
+	<label for="gate-digit-spinner">On Digit/Qbit </label>
+	<input type="text" id="gate-digit-spinner" size="1" disabled title="Digit/qubit to which to apply gate/permutation"/>
+	&nbsp;&nbsp;
+	<label for="gate-all-digits">All Digits</label>
+	<input type="checkbox" id="gate-all-digits" title="Apply gate/permutation to all qubits (Kronecker/parallel/spatial product)"/>
+	<label for="gate-all-parts">All Parts</label>
+	<input type="checkbox" id="gate-all-parts" title="Apply gate/permutation to all parts (for &ldquo;entangled gates&rdquo;, like QFT, this is not the same as the Kronecker/parallel/spatial product on all digits)"/>
+
+	&nbsp;&nbsp;
+	<label class="adv" for="gate-cond">Cond.</label>
+	<input class="adv" type="checkbox" id="gate-cond" disabled title="Apply gate conditioned on another digit. (TODO: Disabled)"/>
+	<label class="adv" for="gate-cdigit-spinner">Cond. Digit/Qbit </label>
+	<input class="adv" type="text" id="gate-cdigit-spinner" size="1" disabled title="Digit/qubit to condition gate/permutation on. (TODO: Multiple cond. digits? 'Padding with identity' replacement for conditional gates??)"/>
+
+<br><br>
+ <div id="gate-btns-panel"></div>
+</fieldset>
+
+</div>
+
+</div "settings">
+</div "settings-header">
+
+</form>
+</font>
+
+
+<hr align="center" width="90%">
+
+<svg id="QAL-graphics" width="90%">
+
+</svg>
+
+<p>
+<font size="-1">Copyright &copy; 2022-2023 Moez A. AbdelGawad. All rights reserved.</font></p>
+
+</center>
+</body>
+
+</html>
