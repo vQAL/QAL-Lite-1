@@ -5,4 +5,6 @@
 
 As to teaching math in particular, QAL aims to teach the concepts of linear algebra (and group theory) visually and interactively as an intuitive *game*.
 
-**QAL Lite** presents a glimpse of the main features of QAL. Check the `QAL-Abstract` and `QALLite-Screenshots` files for more details.
+Besides quantum computing, the math nicely presented in QAL has applications in machine learning, computer graphics, and cybersecurity, among many other mathematical sciences.
+
+QAL Lite presents a glimpse of the main features of QAL. Check the `QAL-Abstract` and `QALLite-Screenshots` files available here for more details.
